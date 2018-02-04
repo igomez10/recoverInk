@@ -14,17 +14,23 @@
     </head>
 
     <body>
+      <div style="display:flex">
         <div>
-            <h1>Try to write the following </h1>
+          <div style="width:30rem; height:30rem; margin:auto; border-radius:10px; margin-left:1rem; margin-right:1rem; margin-top:4rem" class="card-panel teal #ffebee red lighten-5">
+            <h2>Write the following: </h2>
             <p id='todelete'></p>
-            <h2 id="quiz"></h2>
-            <button onclick="clearField()">CLEAR</button>
+            <h2 id="quiz" style="font-weight:800"></h2>
             <div>
-              <h1>Score: </h1>
-              <h2 id=score></h2>
+              <h5>Score: </h5>
+              <h5 id=score></h5>
             </div>
+            <a class="waves-effect waves-light btn" onclick="clearField()">Clear</a>
+
+          </div>
+
         </div>
-        <paper-toast id="result" class="fit-top"></paper-toast>
+        <div style="width: 50rem; height:40rem; border-radius:10px; margin-top:4rem" >
+        <!-- <paper-toast id="result" class="fit-top"></paper-toast> -->
         <myscript-text-web apiversion="V3"
                            scheme="https"
                            host="webdemoapi.myscript.com"
@@ -35,14 +41,18 @@
                            disableexportcontrol
                            disableconvertcontrol
                            touch-action="none"
-                           style="height:400px"
-                           id="myscript">
+                           style="height:30rem; border-radius:10px"
+                           id="myscript"
+                           class="#bbdefb blue lighten-4"
+                           >
         </myscript-text-web>
         <myscript-text-exports
                 exports="myscript-text-web.exports">
         </myscript-text-exports>
 
         <p id="stats"></p>
+      </div>
+    </div>
         <script>
 
                 userScore = 0;
