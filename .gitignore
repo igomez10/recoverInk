@@ -1,7 +1,0 @@
-bower_components
-node_modules
-*~
-*#
-*.idea
-/escrow/
-/.bowerrc

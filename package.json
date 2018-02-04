@@ -1,11 +1,10 @@
 {
-	"scripts": {
-		"cache-clean": "bower cache clean",
-		"install": "bower install",
-		"analyze": "polymer analyze myscript-text-exports.html myscript-text-web.html > analysis.json",
-		"start": "polymer serve"
-	},
-	"engines": {
-		"node": "6"
-	}
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "redis": "^2.8.0",
+    "serve-favicon": "^2.4.5"
+  }
 }
