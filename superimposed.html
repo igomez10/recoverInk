@@ -11,9 +11,13 @@
 
     <body>
         <div>
-            <h1>Try to write the following </h1>
+            <h1>Try to write the following </h1> <button onclick=exportData()>EXPORT</button>
+            <p id='todelete'></p>
             <h2 id="quiz"></h2>
-        
+            <div>
+              <h1>Score: </h1>
+              <h2 id=score></h2>
+            </div>
         </div>
         <paper-toast id="result" class="fit-top"></paper-toast>
         <myscript-text-web apiversion="V3"
@@ -25,7 +29,9 @@
                            textcandidatelistsize="20"
                            disableexportcontrol
                            disableconvertcontrol
-                           touch-action="none">
+                           touch-action="none"
+                           style="height:400px"
+                           id="myscript">
         </myscript-text-web>
         <myscript-text-exports
                 exports="myscript-text-web.exports">
@@ -42,19 +48,41 @@
                     const load = () => {
                             console.log("load event detected!");
                             document.getElementById("quiz").innerHTML=`${getRandomChar()}`;
-                    } 
-            window.onload = load; 
+                    }
+            window.onload = load;
             const paperToast = document.querySelector('paper-toast');
-            document.querySelector('myscript-text-web').addEventListener('changed', (event) => {
-                     paperToast.text = `Stats for this input are : ${JSON.stringify(event.target.getStats())}`;
-                     console.log(event.detail);
-                     paperToast.fitIn = paperToast.show();
-                     if(event.srcElement.exports){
-                        document.getElementById("stats").innerHTML=`Your improvement score: ${event.srcElement.exports.CANDIDATES.textSegmentResult.candidates[0].normalizedScore}`;
-                     document.getElementById("quiz").innerHTML=`${getRandomChar()}`;
-                     //event.srcElement.clear();
-                     };
-                     });
+
+           document.querySelector('myscript-text-web').addEventListener('exported', function (event) {
+               // paperToast.text = `Recognition object contains : ${JSON.stringify(event.detail)}`;
+               document.getElementById('todelete').innerHTML = JSON.stringify(event.detail.exports.CANDIDATES.textSegmentResult.candidates)
+               var candidateArray = event.detail.exports.CANDIDATES.textSegmentResult.candidates
+               console.log(candidateArray)
+               // var objective = document.getElementById('quiz')
+               // for(var i = 0 ; i < candidateArray.length ; i++) {
+               //   if objective == candidateArray[i].label{
+               //     document.getElementById('score').innerHTML = candidateArray[i].normalizedScore
+               //   }
+               // }
+               // paperToast.fitIn = paperToast.show();
+           });
+            // function exportData(){
+            //   myscript-text-web.askForExport("application/vnd.myscript.jiix"))
+            // }
+            // document.querySelector('myscript-text-web').addEventListener('changed', (event) => {
+            //          paperToast.text = `Stats for this input are : ${JSON.stringify(event.target.getStats())}`;
+            //          console.log(event.detail);
+            //          paperToast.fitIn = paperToast.show();
+            //          if(event.srcElement.exports)
+            //          {
+            //            var candidates = event.srcElement.exports.CANDIDATES.textSegmentResult.candidates
+            //            console.log("aloha")
+            //
+            //            console.log(candidates)
+            //            document.getElementById("stats").innerHTML=`Your improvement score: ${event.srcElement.exports.CANDIDATES.textSegmentResult.candidates[0].normalizedScore}`;
+            //            document.getElementById("quiz").innerHTML=`${getRandomChar()}`;
+            //          //event.srcElement.clear();
+            //          };
+            //          });
         </script>
     </body>
 
