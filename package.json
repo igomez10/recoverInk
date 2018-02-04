@@ -1,8 +1,11 @@
 {
-  "scripts": {
-    "cache-clean": "bower cache clean",
-    "install": "bower install",
-    "analyze": "polymer analyze myscript-text-exports.html myscript-text-web.html > analysis.json",
-    "start": "polymer serve"
-  }
+	"scripts": {
+		"cache-clean": "bower cache clean",
+		"install": "bower install",
+		"analyze": "polymer analyze myscript-text-exports.html myscript-text-web.html > analysis.json",
+		"start": "polymer serve"
+	},
+	"engines": {
+		"node": "6"
+	}
 }
