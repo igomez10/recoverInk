@@ -57,12 +57,15 @@
                document.getElementById('todelete').innerHTML = JSON.stringify(event.detail.exports.CANDIDATES.textSegmentResult.candidates)
                var candidateArray = event.detail.exports.CANDIDATES.textSegmentResult.candidates
                console.log(candidateArray)
-               // var objective = document.getElementById('quiz')
-               // for(var i = 0 ; i < candidateArray.length ; i++) {
-               //   if objective == candidateArray[i].label{
-               //     document.getElementById('score').innerHTML = candidateArray[i].normalizedScore
-               //   }
-               // }
+               var objective = document.getElementById('quiz').innerHTML
+               for(var i = 0 ; i < candidateArray.length ; i++) {
+                 if(objective == candidateArray[i].label){
+                   console.log("FOUND MY OBJECTIVE")
+                   document.getElementById('score').innerHTML = candidateArray[i].normalizedScore
+                 }
+               }
+               console.log("OBJECTIVE WAS NOT FOUND")
+
                // paperToast.fitIn = paperToast.show();
            });
             // function exportData(){
