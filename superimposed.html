@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
     <head>
@@ -6,7 +7,10 @@
       <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
       <!-- Load myscript-text-web and the related librairies -->
       <link rel="import" href="bower_components/myscript-text-web/myscript-text-web.html">
-
+      <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <!--Let browser know website is optimized for mobile-->
+              <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
 
     <body>
@@ -40,9 +44,13 @@
 
         <p id="stats"></p>
         <script>
+
+                userScore = 0;
+                counter = 0;
                     function getRandomChar() {
                           var text = "";
                             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                              counter = counter + 1;
                               text += possible.charAt(Math.floor(Math.random() * possible.length));
                               return text;
 
@@ -58,19 +66,26 @@
                // paperToast.text = `Recognition object contains : ${JSON.stringify(event.detail)}`;
                // document.getElementById('todelete').innerHTML = JSON.stringify(event.detail.exports.CANDIDATES.textSegmentResult.candidates)
                try{
-               var candidateArray = event.detail.exports.CANDIDATES.textSegmentResult.candidates
+                    var candidateArray = event.detail.exports.CANDIDATES.textSegmentResult.candidates
+                   console.log(candidateArray)
+                   var objective = document.getElementById('quiz').innerHTML
+                   for(var i = 0 ; i < candidateArray.length ; i++) {
+                     if(objective == candidateArray[i].label){
+                        let normScore = candidateArray[i].normalizedScore;
+                        userScore = (normScore + counter*userScore)/(counter + 1);
+                       console.log("FOUND MY OBJECTIVE");
+                       document.getElementById('score').innerHTML = userScore;
+                       break;
+                     }
+                     else{
+                        console.log("OBJECTIVE NOT FOUND")
+                     }
+                   }
+                    setTimeout(()=>{
+                        document.querySelector('myscript-text-web').clear()
+                        document.getElementById("quiz").innerHTML=`${getRandomChar()}`;
+                    },5000);
 
-               console.log(candidateArray)
-               var objective = document.getElementById('quiz').innerHTML
-               for(var i = 0 ; i < candidateArray.length ; i++) {
-                 if(objective == candidateArray[i].label){
-                   console.log("FOUND MY OBJECTIVE")
-                   document.getElementById('score').innerHTML = candidateArray[i].resemblanceScore
-                   return
-                 }
-               }
-               console.log("OBJECTIVE NOT FOUND")
-               // paperToast.fitIn = paperToast.show();
              }
              catch(err) {
 
@@ -82,6 +97,9 @@
              load()
            }
         </script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+          <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     </body>
 
 </html>
