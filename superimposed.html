@@ -10,17 +10,52 @@
     </head>
 
     <body>
+        <div>
+            <h1>Try to write the following </h1>
+            <h2 id="quiz"></h2>
+        
+        </div>
+        <paper-toast id="result" class="fit-top"></paper-toast>
         <myscript-text-web apiversion="V3"
                            scheme="https"
                            host="webdemoapi.myscript.com"
                            applicationkey="f6c15b34-dbbf-4908-a796-309e3f053222"
                            hmackey="7ddfc6fe-e0c6-4c14-aba0-b777bb370d94"
-                           textinputmode="SUPERIMPOSED"
-                           textcandidatelistsize="3"
+                           textinputmode="CURSIVE"
+                           textcandidatelistsize="20"
                            disableexportcontrol
                            disableconvertcontrol
                            touch-action="none">
         </myscript-text-web>
+        <myscript-text-exports
+                exports="myscript-text-web.exports">
+        </myscript-text-exports>
+
+        <p id="stats"></p>
+        <script>
+                    function getRandomChar() {
+                          var text = "";
+                            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                              text += possible.charAt(Math.floor(Math.random() * possible.length));
+                                return text;
+                    }
+                    const load = () => {
+                            console.log("load event detected!");
+                            document.getElementById("quiz").innerHTML=`${getRandomChar()}`;
+                    } 
+            window.onload = load; 
+            const paperToast = document.querySelector('paper-toast');
+            document.querySelector('myscript-text-web').addEventListener('changed', (event) => {
+                     paperToast.text = `Stats for this input are : ${JSON.stringify(event.target.getStats())}`;
+                     console.log(event.detail);
+                     paperToast.fitIn = paperToast.show();
+                     if(event.srcElement.exports){
+                        document.getElementById("stats").innerHTML=`Your improvement score: ${event.srcElement.exports.CANDIDATES.textSegmentResult.candidates[0].normalizedScore}`;
+                     document.getElementById("quiz").innerHTML=`${getRandomChar()}`;
+                     //event.srcElement.clear();
+                     };
+                     });
+        </script>
     </body>
 
 </html>
