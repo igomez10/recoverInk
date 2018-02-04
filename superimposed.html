@@ -14,6 +14,7 @@
             <h1>Try to write the following </h1>
             <p id='todelete'></p>
             <h2 id="quiz"></h2>
+            <button onclick="clearField()">CLEAR</button>
             <div>
               <h1>Score: </h1>
               <h2 id=score></h2>
@@ -41,7 +42,7 @@
         <script>
                     function getRandomChar() {
                           var text = "";
-                            var possible = "A B CDEF GHIJ KLMNO  PQRST UVWXYZ";
+                            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                               text += possible.charAt(Math.floor(Math.random() * possible.length));
                               return text;
 
@@ -56,18 +57,30 @@
            document.querySelector('myscript-text-web').addEventListener('exported', function (event) {
                // paperToast.text = `Recognition object contains : ${JSON.stringify(event.detail)}`;
                // document.getElementById('todelete').innerHTML = JSON.stringify(event.detail.exports.CANDIDATES.textSegmentResult.candidates)
+               try{
                var candidateArray = event.detail.exports.CANDIDATES.textSegmentResult.candidates
+
                console.log(candidateArray)
                var objective = document.getElementById('quiz').innerHTML
                for(var i = 0 ; i < candidateArray.length ; i++) {
                  if(objective == candidateArray[i].label){
                    console.log("FOUND MY OBJECTIVE")
                    document.getElementById('score').innerHTML = candidateArray[i].resemblanceScore
+                   return
                  }
                }
-               console.log("OBJECTIVE WAS NOT FOUND")
+               console.log("OBJECTIVE NOT FOUND")
                // paperToast.fitIn = paperToast.show();
+             }
+             catch(err) {
+
+             }
            });
+
+           var clearField = () => {
+             document.querySelector('myscript-text-web').clear()
+             load()
+           }
         </script>
     </body>
 
